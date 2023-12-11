@@ -43,7 +43,8 @@ class CommentMixin(LoginRequiredMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('blog:post_detail', kwargs={'post_id': self.kwargs['post_id']})
+        return reverse('blog:post_detail',
+                       kwargs={'post_id': self.kwargs['post_id']})
 
 
 class IndexView(ListView):
@@ -70,7 +71,8 @@ class PostDetailView(DetailView):
 
     def get_object(self, queryset=None):
         post = get_object_or_404(Post, id=self.kwargs['post_id'])
-        if self.request.user != post.author and (post.pub_date > timezone.now() or not post.is_published):
+        if self.request.user != post.author and (
+           post.pub_date > timezone.now() or not post.is_published):
             raise Http404
         return post
 
@@ -194,7 +196,8 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('blog:post_detail', kwargs={'post_id': self.kwargs['post_id']})
+        return reverse('blog:post_detail',
+                       kwargs={'post_id': self.kwargs['post_id']})
 
 
 class CommentUpdateView(CommentMixin, UpdateView):

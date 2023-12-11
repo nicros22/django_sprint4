@@ -24,4 +24,3 @@ def csrf_failure(request, reason=''):
     template = 'pages/403csrf.html'
     return render(request, template, status=403)
 
-
