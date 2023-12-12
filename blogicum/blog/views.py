@@ -196,7 +196,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
 
 class CommentUpdateView(CommentMixin, UpdateView):
-    pass
+    form_class = CommentForm
 
 
 class CommentDeleteView(CommentMixin, DeleteView):
