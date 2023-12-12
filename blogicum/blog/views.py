@@ -14,13 +14,10 @@ from django.views.generic import (
 )
 from django.utils import timezone
 
-from .models import Post, Category, Comment
+from .models import Post, Category, Comment, User
 from .forms import PostForm, CommentForm, UserForm
 from .tools import get_datapost
-
-POSTS_IN_PAGE = 10
-
-User = get_user_model()
+from .constants import POSTS_IN_PAGE
 
 
 class PostMixin:
@@ -51,7 +48,6 @@ class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     paginate_by = POSTS_IN_PAGE
-    ordering = '-pub_date'
 
     def get_queryset(self):
         return self.model.objects.select_related(
@@ -201,7 +197,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
 
 class CommentUpdateView(CommentMixin, UpdateView):
-    form_class = CommentForm
+    pass
 
 
 class CommentDeleteView(CommentMixin, DeleteView):
